@@ -1,1 +1,0 @@
-# zadanie1_pdst_chumury
