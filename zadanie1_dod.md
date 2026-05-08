@@ -249,14 +249,7 @@ Aby sprostać wymaganiom wieloarchitekturowym oraz cache'owania, utworzono dedyk
 Następnie zbudowano obraz na platformy `linux/amd64` oraz `linux/arm64`, wykorzystując eksporter rejestru (backend registry) w trybie `max` dla pełnego zapisu warstw pamięci podręcznej.
 
 **Wykorzystane polecenie budujące (zawierające secret, multi-arch i cache):**
-`docker buildx build \`
-  `--platform linux/amd64,linux/arm64 \`
-  `--secret id=my_github_token,src=github_token.txt \`
-  `--cache-to type=registry,ref=jkrzem/lab-weather-python:cache,mode=max \`
-  `--cache-from type=registry,ref=jkrzem/lab-weather-python:cache \`
-  `-t jkrzem/lab-weather-python:v3 \`
-  `--push \`
-  `.`
+`docker buildx build --platform linux/amd64,linux/arm64 --secret id=my_github_token,src=github_token.txt --cache-to type=registry,ref=jkrzem/lab-weather-python:cache,mode=max --cache-from type=registry,ref=jkrzem/lab-weather-python:cache -t jkrzem/lab-weather-python:v3 --push .`
 Efekt wykorzystanego polecenia
 
   ```
