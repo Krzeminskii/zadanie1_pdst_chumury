@@ -5,6 +5,7 @@
 **Zadanie:** 1
 
 **Autor:** Jan Krzemiński
+
 ---
 
 ## 1. Kod oprogramowania (Aplikacja pogodowa)
