@@ -1,38 +1,39 @@
-# --- ETAP 1: Obraz bazowy ---
+# syntax=docker/dockerfile:1
+# --- ETAP 1: Obraz bazowy (Builder) ---
 FROM python:3.12-alpine AS builder
 
 WORKDIR /app
-COPY main.py .
 
-# Optymalizacja: Kompilacja do bytecode'u
+# Wymóg BuildKit: Instalujemy git-a, by pobrać kod z repozytorium
+RUN apk add --no-cache git
+
+# Klonowanie kodu prosto z publicznego repozytorium GitHub
+# przy wykorzystaniu bezpiecznego przekazywania sekretów (mount secret).
+RUN --mount=type=secret,id=my_github_token \
+    git clone https://$(cat /run/secrets/my_github_token)@github.com/Krzeminskii/zadanie1_pdst_chumury.git .
+
 RUN python -m compileall main.py
 
-# Tworzenie użytkownika non-root
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 RUN chown -R appuser:appgroup /app
 
-# --- ETAP 2: Docelowy obraz ---
+# --- ETAP 2: Obraz docelowy (Scratch) ---
 FROM scratch
 
-# Wymóg: Etykiety OCI
-LABEL org.opencontainers.image.authors="Jan Krzemiński" \
-      org.opencontainers.image.title="Cloud Weather App (Python w Scratch)" \
-      org.opencontainers.image.description="Aplikacja do sprawdzania pogody"
+LABEL org.opencontainers.image.authors="[Twoje Imię i Nazwisko]" \
+      org.opencontainers.image.title="Cloud Weather App" \
+      org.opencontainers.image.description="Aplikacja pobierana bezpośrednio z GitHuba"
 
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Kopiujemy fizyczny system plików z etapu "builder" do warstwy scratch
+# Skopiowanie systemu z pobraną z GitHuba aplikacją
 COPY --from=builder / /
 
-# Przełączamy na utworzonego wcześniej użytkownika bez uprawnień roota
 USER appuser
-
 EXPOSE 8080
 
-# Healthcheck bazujący na wbudowanym narzędziu wget
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:8080/health || exit 1
 
-# Uruchomienie aplikacji w Pythonie wewnątrz warstwy scratch
 CMD ["python", "main.py"]
