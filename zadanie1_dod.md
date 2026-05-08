@@ -186,8 +186,9 @@ Poniżej znajduje się zrzut ekranu z poprawnie działającej aplikacji udostęp
 
 <img width="544" height="269" alt="obraz" src="https://github.com/user-attachments/assets/bf9c7621-2e6d-43e4-be08-b61abe77ddd9" />
 
----
-#Sprawozdanie część dodatkowa
+--- 
+
+### Sprawozdanie część dodatkowa
 
 ## 1. Analiza podatności na zagrożenia (CVE)
 Przed przystąpieniem do budowy obraz został przeskanowany przy użyciu narzędzia Docker Scout. Wykorzystanie obrazu bazowego Alpine, optymalizacja warstw oraz rezygnacja z instalowania zewnętrznych zależności w Pythonie pozwoliła uzyskać najwyższy poziom bezpieczeństwa. 
