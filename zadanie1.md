@@ -1,6 +1,9 @@
 # Sprawozdanie - Część Obowiązkowa
+
 **Laboratorium:** Programowanie Aplikacji w Chmurze Obliczeniowej
+
 **Zadanie:** 1
+
 **Autor:** Jan Krzemiński
 ---
 
