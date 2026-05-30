@@ -145,6 +145,19 @@ jobs:
           secrets: |
             my_github_token=${{ secrets.MY_GITHUB_TOKEN }}
 ```
+## Potwierdzenie działania zadania
+### 1. Pełny przebieg łańcucha CI/CD
+Główny widok pomyślnie wykonanego potoku. Wszystkie zdefiniowane kroki zakończyły się statusem sukcesu.
+<img width="1515" height="850" alt="obraz" src="https://github.com/user-attachments/assets/1014416d-eb63-4e2f-aaaa-2bc3b366343b" />
 
+### 2. Wyniki testu bezpieczeństwa CVE
+Logi z konsoli kroku `Run Trivy vulnerability scanner`.
+<img width="852" height="957" alt="obraz" src="https://github.com/user-attachments/assets/83b8a675-c311-4cf5-94a1-fe097a1ff999" />
 
+### 3. Eksport pamięci podręcznej na DockerHub
+Potwierdzenie prawidłowego działania pamięci podręcznej.
+<img width="687" height="550" alt="obraz" src="https://github.com/user-attachments/assets/8dbc8fbd-6394-4bb0-800a-62a1ac6dbd0b" />
+
+Link do repozytorium na Docker hub:
+https://hub.docker.com/r/jkrzem/app-cache/tags
 
